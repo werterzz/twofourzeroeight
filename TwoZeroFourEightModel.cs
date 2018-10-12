@@ -17,11 +17,6 @@ namespace twozerofoureight
             // default board size is 4 
         }
 
-        public int[,] GetBoard()
-        {
-            return board;
-        }
-
         public TwoZeroFourEightModel(int size)
         {
             boardSize = size;
@@ -35,6 +30,11 @@ namespace twozerofoureight
             rand = new Random();
             board = Random(board);
             NotifyAll();
+        }
+
+        public int[,] GetBoard()
+        {
+            return board;
         }
 
         private int[,] Random(int[,] input)
@@ -67,7 +67,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                // shift left
+                // shift down
                 foreach (int j in rangeY)
                 {
                     if (board[j, i] != 0)
@@ -85,7 +85,7 @@ namespace twozerofoureight
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift down again
                 pos = 3;
                 foreach (int j in rangeX)
                 {
@@ -119,7 +119,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                // shift left
+                // shift up
                 foreach (int j in range)
                 {
                     if (board[j, i] != 0)
@@ -137,7 +137,7 @@ namespace twozerofoureight
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift up again
                 pos = 0;
                 foreach (int j in range)
                 {
@@ -173,7 +173,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                // shift left
+                // shift right
                 foreach (int j in rangeX)
                 {
                     if (board[i, j] != 0)
@@ -191,7 +191,7 @@ namespace twozerofoureight
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift right again
                 pos = 3;
                 foreach (int j in rangeY)
                 {
