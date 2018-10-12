@@ -67,7 +67,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift left
                 foreach (int j in rangeY)
                 {
                     if (board[j, i] != 0)
@@ -119,7 +119,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift left
                 foreach (int j in range)
                 {
                     if (board[j, i] != 0)
@@ -173,7 +173,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift left
                 foreach (int j in rangeX)
                 {
                     if (board[i, j] != 0)
@@ -224,7 +224,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift left
                 foreach (int j in range)
                 {
                     if (board[i, j] != 0)
