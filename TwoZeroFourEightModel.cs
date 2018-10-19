@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+
 
 namespace twozerofoureight
 {
@@ -11,6 +13,8 @@ namespace twozerofoureight
         protected int boardSize; // default is 4
         protected int[,] board;
         protected Random rand;
+        protected bool isFull;
+        protected int score;
 
         public TwoZeroFourEightModel() : this(4)
         {
@@ -37,10 +41,46 @@ namespace twozerofoureight
             return board;
         }
 
+        public bool GetIsFull()
+        {
+            return isFull;
+        }
+        public int GetScore()
+        {
+            return score;
+        }
+        private void isPlay()
+        {
+            bool canPlay2 = false;
+            int scoreCount = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    scoreCount = scoreCount + board[i, j];
+                    score = scoreCount;
+                    if (board[i,j] == 0 || (j > 0 && board[i,j] == board[i,j-1]) || (i > 0 && board[i, j] == board[i-1, j]))
+                    {
+                        canPlay2 = true;
+                    }
+                    
+                }
+            }
+            if (canPlay2 == false)
+            {
+                Console.WriteLine("FULL");
+                isFull = true;
+
+            }
+            
+        }
+
         private int[,] Random(int[,] input)
         {
+            int count = 0;
             while (true)
-            {
+            {   
+                
                 int x = rand.Next(boardSize);
                 int y = rand.Next(boardSize);
                 if (board[x, y] == 0)
@@ -48,6 +88,15 @@ namespace twozerofoureight
                     board[x, y] = 2;
                     break;
                 }
+                else if(count == 50)
+                {
+                   
+                        
+                    
+
+                    break;
+                }
+                count++;
             }
             return input;
         }
@@ -101,7 +150,11 @@ namespace twozerofoureight
                     board[k, i] = 0;
                 }
             }
-            board = Random(board);
+            isPlay();
+            if (!isFull)
+            {
+                board = Random(board);
+            }
             NotifyAll();
         }
 
@@ -153,7 +206,11 @@ namespace twozerofoureight
                     board[k, i] = 0;
                 }
             }
-            board = Random(board);
+            isPlay();
+            if (!isFull)
+            {
+                board = Random(board);
+            }
             NotifyAll();
         }
 
@@ -207,7 +264,13 @@ namespace twozerofoureight
                     board[i, k] = 0;
                 }
             }
-            board = Random(board);
+           
+                isPlay();
+                if (!isFull)
+                {
+                    board = Random(board);
+                }
+            
             NotifyAll();
         }
 
@@ -257,7 +320,11 @@ namespace twozerofoureight
                     board[i, k] = 0;
                 }
             }
-            board = Random(board);
+            isPlay();
+            if (!isFull)
+            {
+                board = Random(board);
+            }
             NotifyAll();
         }
     }

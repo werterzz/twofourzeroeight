@@ -14,6 +14,8 @@ namespace twozerofoureight
     {
         Model model;
         Controller controller;
+        bool isFull2;
+        int score;
        
         public TwoZeroFourEightView()
         {
@@ -23,11 +25,18 @@ namespace twozerofoureight
             controller = new TwoZeroFourEightController();
             controller.AddModel(model);
             controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+            //TwoZeroFourEightView_KeyPress(sender,e);
+
+
+
         }
 
         public void Notify(Model m)
         {
+            
             UpdateBoard(((TwoZeroFourEightModel) m).GetBoard());
+            isFull2 = ((TwoZeroFourEightModel)m).GetIsFull();
+            score = ((TwoZeroFourEightModel)m).GetScore();
         }
 
         private void UpdateTile(Label l, int i)
@@ -57,6 +66,10 @@ namespace twozerofoureight
                     break;
             }
         }
+        private void UpdateScore(int score)
+        {
+
+        }
         private void UpdateBoard(int[,] board)
         {
             UpdateTile(lbl00,board[0, 0]);
@@ -75,27 +88,41 @@ namespace twozerofoureight
             UpdateTile(lbl31,board[3, 1]);
             UpdateTile(lbl32,board[3, 2]);
             UpdateTile(lbl33,board[3, 3]);
+            label1.Text = score.ToString();
         }
 
-        private void btnLeft_Click(object sender, EventArgs e)
+        private void TwoZeroFourEightView_KeyDown(object sender, KeyEventArgs e)
         {
-            controller.ActionPerformed(TwoZeroFourEightController.LEFT);
-        }
+            switch (e.KeyData)
+            {
+                case Keys.W:
+                case Keys.Up:
+                    controller.ActionPerformed(TwoZeroFourEightController.UP);
+                    label1.Visible = isFull2;
+                    label2.Visible = isFull2;
+                    break;
+                case Keys.S:
+                case Keys.Down:
+                    controller.ActionPerformed(TwoZeroFourEightController.DOWN);
+                    label1.Visible = isFull2;
+                    label2.Visible = isFull2;
 
-        private void btnRight_Click(object sender, EventArgs e)
-        {
-            controller.ActionPerformed(TwoZeroFourEightController.RIGHT);
-        }
+                    break;
+                case Keys.D:
+                case Keys.Right:
+                    controller.ActionPerformed(TwoZeroFourEightController.RIGHT);
+                    label1.Visible = isFull2;
+                    label2.Visible = isFull2;
 
-        private void btnUp_Click(object sender, EventArgs e)
-        {
-            controller.ActionPerformed(TwoZeroFourEightController.UP);
-        }
+                    break;
+                case Keys.A:
+                case Keys.Left:
+                    controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+                    label1.Visible = isFull2;
+                    label2.Visible = isFull2;
 
-        private void btnDown_Click(object sender, EventArgs e)
-        {
-            controller.ActionPerformed(TwoZeroFourEightController.DOWN);
+                    break;
+            }
         }
-
     }
 }
